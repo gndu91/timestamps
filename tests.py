@@ -28,9 +28,9 @@ class InitializationTests(unittest.TestCase):
 		j = Timestamp(i)
 		k = Timestamp(_float=i)
 		l = Timestamp.from_float(k._float)
-		self.assertEqual(j._float, i)
-		self.assertEqual(j._float, k._float)
-		self.assertEqual(l._float, j._float)
+		self.assertEqual(float(j), i)
+		self.assertEqual(float(j), k._float)
+		self.assertEqual(float(l), float(j))
 
 		del i, j, k, l
 
@@ -42,8 +42,8 @@ class InitializationTests(unittest.TestCase):
 		t2 = Timestamp(_datetime=d)
 		t3 = Timestamp.from_datetime(d)
 
-		self.assertEqual(t1._float, t2._float)
-		self.assertEqual(t3._float, timestamp)
+		self.assertEqual(float(t1), float(t2))
+		self.assertEqual(float(t3), timestamp)
 
 		del d, timestamp, t1, t2, t3
 
@@ -54,10 +54,10 @@ class InitializationTests(unittest.TestCase):
 		t3 = Timestamp(_hex='#FF ')
 		t4 = Timestamp('00fF')
 
-		self.assertEqual(t1._float, t2._float)
-		self.assertEqual(t2._float, t3._float)
-		self.assertEqual(t3._float, t4._float)
-		self.assertEqual(t4._float, t1._float)
+		self.assertEqual(float(t1), float(t2))
+		self.assertEqual(float(t2), float(t3))
+		self.assertEqual(float(t3), float(t4))
+		self.assertEqual(float(t4), float(t1))
 
 		del t1, t2, t3, t4
 
@@ -84,3 +84,11 @@ class CompareTests(unittest.TestCase):
 			self.assertEqual(b, b)
 
 			self.assertNotEqual(a, b)
+
+class OperatorTests(unittest.TestCase):
+	def test_pos(self):
+		t = Timestamp.now()
+		assert t is +t
+
+		t = Timestamp('0x01')
+		assert t is +t

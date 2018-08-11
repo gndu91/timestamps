@@ -90,3 +90,9 @@ class Timestamp:
 	def __ge__(self, other):
 		return self.cmp(other) >= 0
 
+	def __pos__(self):
+		return self
+
+	def __float__(self):
+		return self._float
+

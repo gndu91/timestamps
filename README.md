@@ -22,6 +22,7 @@ Represents a timestamp with a 10^-7 precision (same as the time.time() of python
 You can instanciate it in various ways, each time, you can provide a non-keyword value
 	or a value with as keyword either _float, _hex or _datetime,
 	or with the methods from_float, from_hex and from_datetime
+Timestamps objects can ONLY represent POSITIVE timestamps.
 ```python
 
 # From the current time
@@ -44,5 +45,11 @@ t = Timestamp.from_hex('#FF')
 
 # With another timestamp
 t = Timestamp(Timestamp.now())
-
+```
+You can compare them with anything that can fit in the Timestamp initializator,
+        namely floats, datetimes, and hex values.
+```python
+Timestamp.now() < Timestamp.now()
+time.time() < Timestamp.now()
+'0xff' < Timestamp(time.time())
 ```
