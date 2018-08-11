@@ -45,4 +45,18 @@ class Timestamp:
 		if self._float is None:
 			raise RuntimeError('Unhandled Error')
 
+	@classmethod
+	def from_float(cls, value):
+		return cls(_float=value)
 
+	@classmethod
+	def from_hex(cls, value):
+		return cls(_hex=value)
+
+	@classmethod
+	def from_datetime(cls, value):
+		return cls(_datetime=value)
+
+	@classmethod
+	def now(cls):
+		return cls.from_float(time.time())

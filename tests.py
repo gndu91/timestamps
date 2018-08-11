@@ -18,7 +18,7 @@ class InitializationTests(unittest.TestCase):
 		i = random.random()*time.time()
 		j = Timestamp(i)
 		k = Timestamp(_float=i)
-		l = Timestamp(k._float)
+		l = Timestamp.from_float(k._float)
 		self.assertEqual(j._float, i)
 		self.assertEqual(j._float, k._float)
 		self.assertEqual(l._float, j._float)
@@ -29,9 +29,9 @@ class InitializationTests(unittest.TestCase):
 		# Initialize with datetime
 		d = datetime.datetime.now()
 		timestamp = d.timestamp()
-		t1 = Timestamp(d)
+		t1 = Timestamp(timestamp)
 		t2 = Timestamp(_datetime=d)
-		t3 = Timestamp(timestamp)
+		t3 = Timestamp.from_datetime(d)
 
 		self.assertEqual(t1._float, t2._float)
 		self.assertEqual(t3._float, timestamp)
@@ -41,8 +41,8 @@ class InitializationTests(unittest.TestCase):
 	def test_hex(self):
 		# Initialize with hex
 		t1 = Timestamp('0xff')
-		t2 = Timestamp(' ff ')
-		t3 = Timestamp('#FF ')
+		t2 = Timestamp.from_hex(' ff ')
+		t3 = Timestamp(_hex='#FF ')
 		t4 = Timestamp('00fF')
 
 		self.assertEqual(t1._float, t2._float)
