@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="timestamps",
-    version="1.1.0",
+    version="1.2.0",
     author="GHOUL Nadir",
     author_email="gndu91@gmail.com",
     description="Timestamp manager",

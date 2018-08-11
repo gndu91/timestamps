@@ -13,6 +13,15 @@ class InitializationTests(unittest.TestCase):
 		with self.assertRaises(ValueError) as cm:
 			Timestamp(1.0, _float=1)
 
+	def test_failure_3(self):
+		with self.assertRaises(ValueError):
+			Timestamp(-1)
+
+	def test_failure_3(self):
+		with self.assertRaises(ValueError):
+			Timestamp('-0x1')
+
+
 	def test_float(self):
 		# Initialize with float
 		i = random.random()*time.time()
@@ -53,5 +62,25 @@ class InitializationTests(unittest.TestCase):
 		del t1, t2, t3, t4
 
 	def test_now(self):
-		# now = Timestamp.now()
-		pass
+		now = Timestamp.now()
+
+class CompareTests(unittest.TestCase):
+	def test_now(self):
+		for a, b in (
+			(Timestamp.now(), Timestamp.now()),
+			(Timestamp(' 0xff'), Timestamp.now()),
+			(0.0, Timestamp('ff')),
+			(Timestamp.now(), time.time()),
+			(Timestamp(Timestamp.now()), time.time())
+		):
+
+			self.assertGreater(b, a)
+			self.assertLess(a, b)
+
+			self.assertGreaterEqual(b, a)
+			self.assertLessEqual(a, b)
+
+			self.assertEqual(a, a)
+			self.assertEqual(b, b)
+
+			self.assertNotEqual(a, b)

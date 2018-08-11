@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: timestamps
-Version: 1.1.0
+Version: 1.2.0
 Summary: Timestamp manager
 Home-page: https://github.com/gndu91/timestamps
 Author: GHOUL Nadir
@@ -32,6 +32,9 @@ Description: Timestamp
         	or with the methods from_float, from_hex and from_datetime
         ```python
         
+        # From the current time
+        t = Timestamp.now()
+        
         # With a float
         t = Timestamp(1.0)
         t = Timestamp.from_float(1.0)
@@ -46,6 +49,10 @@ Description: Timestamp
         t = Timestamp(_hex='f')  # WARNING: Discouraged, use Timestamp.from_hex instead
         t = Timestamp('0xf0')
         t = Timestamp.from_hex('#FF')
+        
+        # With another timestamp
+        t = Timestamp(Timestamp.now())
+        
         ```
         
 Platform: UNKNOWN

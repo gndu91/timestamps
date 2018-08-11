@@ -24,6 +24,9 @@ You can instanciate it in various ways, each time, you can provide a non-keyword
 	or with the methods from_float, from_hex and from_datetime
 ```python
 
+# From the current time
+t = Timestamp.now()
+
 # With a float
 t = Timestamp(1.0)
 t = Timestamp.from_float(1.0)
@@ -38,4 +41,8 @@ t = Timestamp(_datetime=datetime.datetime.now()) # WARNING: Discouraged, use Tim
 t = Timestamp(_hex='f')  # WARNING: Discouraged, use Timestamp.from_hex instead
 t = Timestamp('0xf0')
 t = Timestamp.from_hex('#FF')
+
+# With another timestamp
+t = Timestamp(Timestamp.now())
+
 ```

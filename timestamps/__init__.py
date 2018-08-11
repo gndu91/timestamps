@@ -1,4 +1,5 @@
-import datetime
+import datetime, time
+
 
 class Timestamp:
 	def __init__(self, value=None, *, _hex=None, _float=None, _datetime=None, nanosecond=False):
@@ -20,6 +21,8 @@ class Timestamp:
 				_hex, value = value, None
 			elif isinstance(value, datetime.datetime):
 				_datetime, value = value, None
+			elif isinstance(value, Timestamp):
+				_float, value = value._float, None
 			else:
 				raise TypeError('Incorrect type', type(value))
 
@@ -45,6 +48,9 @@ class Timestamp:
 		if self._float is None:
 			raise RuntimeError('Unhandled Error')
 
+		if self._float < 0:
+			raise ValueError('Timestamp should not be negative')
+
 	@classmethod
 	def from_float(cls, value):
 		return cls(_float=value)
@@ -60,3 +66,27 @@ class Timestamp:
 	@classmethod
 	def now(cls):
 		return cls.from_float(time.time())
+
+	def cmp(self, other):
+		if not isinstance(other, self.__class__):
+			other = self.__class__(other)
+		return (self._float > other._float) - (self._float < other._float)
+
+	def __lt__(self, other):
+		return self.cmp(other) < 0
+
+	def __le__(self, other):
+		return self.cmp(other) <= 0
+
+	def __ne__(self, other):
+		return self.cmp(other) != 0
+
+	def __eq__(self, other):
+		return self.cmp(other) == 0
+
+	def __gt__(self, other):
+		return self.cmp(other) > 0
+
+	def __ge__(self, other):
+		return self.cmp(other) >= 0
+
