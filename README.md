@@ -1,6 +1,9 @@
 Timestamp
 =========
 
+# Build Status
+[![Build Status](https://travis-ci.org/gndu91/timestamps.svg?branch=master)](https://travis-ci.org/gndu91/timestamps)
+
 # Install
 In order to install, you can either use pypi with either
 ```bash
